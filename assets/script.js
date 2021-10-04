@@ -21,6 +21,11 @@ fetch("https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + query
 var locationSubmitBtn = $('#location-submit-btn');
 var locationStartInput = $('#start');
 var locationEndInput= $('#end');
+var playlistForm = $('#playlist-form')
+
+var enterArtistLabel =  document.createElement('label');
+var enterArtist = document.createElement('input')
+var generatePlaylistBtn = document.createElement('button');
 
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
@@ -44,6 +49,26 @@ function getTravelDuration(start,end) {
 
 function getPlaylistForm() {
 	console.log('test');
+
+	enterArtistLabel.textContent = 'Enter an artist:';
+	enterArtist.value = 'Artist name';
+	generatePlaylistBtn.textContent = 'Generate Playlist';
+
+	enterArtist.setAttribute('type','text')
+	generatePlaylistBtn.classList.add("button")
+	generatePlaylistBtn.classList.add("medium-6")
+	generatePlaylistBtn.classList.add("cell")
+
+	playlistForm.append(enterArtistLabel);
+	enterArtistLabel.append(enterArtist);
+	playlistForm.append(generatePlaylistBtn);
+
+};
+
+function handleGeneratePlaylistBtn(event) {
+	event.preventDefault();
+	console.log('playlist test');
 };
 
 locationSubmitBtn.on('click',handleLocationSubmitBtn);
+generatePlaylistBtn.addEventListener('click',handleGeneratePlaylistBtn);
