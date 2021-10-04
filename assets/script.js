@@ -55,7 +55,16 @@ fetch("https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + query
 	console.error(err);
 });
 
-
+fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/-84.518641,39.134270;-84.512023,39.102779?access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
+.then(response => {
+	return(response.json());
+})
+.then(function(data){
+	console.log(data)
+})
+.catch(err => {
+	console.error(err);
+});
 
 var locationSubmitBtn = $('#location-submit-btn');
 var locationStartInput = $('#start');
