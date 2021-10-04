@@ -7,28 +7,54 @@ var playlistForm = $('#playlist-form')
 var enterArtistLabel =  document.createElement('label');
 var enterArtist = document.createElement('input')
 var generatePlaylistBtn = document.createElement('button');
-
+var startCoord;
+var endCoord;
 
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
-	console.log('click');
 	var locationStart = locationStartInput.val().trim();
 	var locationEnd =locationEndInput.val().trim();
-	console.log(locationStart);
-	console.log(locationEnd);
 	if (locationStart && locationEnd) {
-		getTravelDuration(locationStart,locationEnd);
+		// getTravelDuration(locationStart,locationEnd);
+		convertCityNametoCoord(locationStart);
+		convertCityNametoCoord(locationEnd);
 		getPlaylistForm();
 	} else {
 		alert('Please fill out both locations')
 	};
 };
 
+function convertCityNametoCoord(city) {
+	var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city +'&units=imperial&appid=4ff77886755c8b9237b9bb4bb1c1e2bf'
+
+	$.ajax({
+        url: requestUrl,
+        method: 'GET',
+        statusCode: {
+            404: function() {
+              alert( "City name not found. Please enter a valid city." );
+            }
+          }
+    }).then(function (response) { 
+		console.log(response);
+
+		console.log(typeof response.coord.lat);
+		console.log(response.coord.lat);
+		if (startCoord == undefined) {
+			startCoord = response.coord.lon+','+response.coord.lat;
+		} else {
+			endCoord = response.coord.lon+','+response.coord.lat;
+        	getTravelDuration( startCoord,endCoord );
+		};
+
+
+	}).catch()
+
+};
+
 function getTravelDuration(start,end) {
-	console.log(start);
-	console.log(end);
-	
-	fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/-84.518641,39.134270;-84.512023,39.102779?access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
+	console.log(start,end);
+	fetch("https://api.mapbox.com/directions-matrix/v1/mapbox/driving/"+start+";"+end+"?access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
 	.then(response => {
 		return(response.json());
 	})
@@ -43,7 +69,7 @@ function getTravelDuration(start,end) {
 function getPlaylistForm() {
 
 	enterArtistLabel.textContent = 'Enter an artist:';
-	enterArtist.value = 'Artist name';
+	enterArtist.setAttribute('placeholder','Artist name') ;
 	generatePlaylistBtn.textContent = 'Generate Playlist';
 
 	enterArtist.setAttribute('type','text')
@@ -65,24 +91,20 @@ function handleGeneratePlaylistBtn(event) {
 //fetch function takes user input and queries spotify
 function spotifyFetch(query) {
 	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + query + "+&count=20&type=tracks"
-	// query = document.getElementById('userEntryPlaceholder').value;
+
 		fetch(queryUrl, {
 			"method": "GET",
 			"headers": {
 				"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
 				"x-rapidapi-key": "22e71f10d1msh07051f2aa164562p1e0d92jsn4703fdeb299a"
 			}
-		})
-			.then(response => {
-				return (response.json());
-			})
-			.then(function (data) {
-				getTracks(data)//passes data to next function
-
-			})
-			// .catch(err => {
-			// 	console.error(err);
-			// });
+		}).then(response => {
+			return (response.json());
+		}).then(function (data) {
+			getTracks(data)//passes data to next function
+		}).catch(err => {
+			console.error(err);
+		});
 			
 };
 
