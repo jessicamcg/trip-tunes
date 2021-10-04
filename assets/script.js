@@ -1,4 +1,5 @@
-fetch("https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=%3CREQUIRED%3E&count=20&type=playlists", {
+query = "kanye"
+fetch("https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + query + "&count=20&type=tracks", {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
@@ -6,12 +7,11 @@ fetch("https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=%3CREQUIR
 	}
 })
 .then(response => {
-	console.log(response);
+	return(response.json());
 })
 .then(function(data){
-console.log(data);
+	console.log(data)
 })
-
 .catch(err => {
 	console.error(err);
 });
