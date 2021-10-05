@@ -9,7 +9,11 @@
 body {
     background-color: var(--main-bg-color);
     color: var(--lightest);
-    min-height: 100vh !important;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 5px;
 }
 
 form label{
@@ -31,6 +35,10 @@ button:hover {
 
 nav {
     background-color: var(--card-bg);
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    z-index: 100
 }
 
 nav a {
