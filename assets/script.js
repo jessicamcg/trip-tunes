@@ -10,7 +10,11 @@ var generatePlaylistBtn = document.createElement('button');
 var startCoord;
 var endCoord;
 var tripDuration;
+var artistNames;
 
+function init(){
+	artistNames = JSON.parse(localStorage.getItem("artistNames"))||[];
+}
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
 	var locationStart = locationStartInput.val().trim();
@@ -74,6 +78,7 @@ function getPlaylistForm() {
 	enterArtist.setAttribute('placeholder','Artist name') ;
 	generatePlaylistBtn.textContent = 'Generate Playlist';
 
+	enterArtist.setAttribute('id','input-artist');
 	enterArtist.setAttribute('type','text')
 	generatePlaylistBtn.classList.add("button")
 	generatePlaylistBtn.classList.add("medium-6")
@@ -82,23 +87,31 @@ function getPlaylistForm() {
 	playlistForm.append(enterArtistLabel);
 	enterArtistLabel.append(enterArtist);
 	playlistForm.append(generatePlaylistBtn);
-
+	$("#input-artist").autocomplete({
+		source: artistNames,
+	});
 };
 
 function handleGeneratePlaylistBtn(event) {
 	event.preventDefault();
 	query = enterArtist.value;
 	console.log(tripDuration);
-
+    
 	var queryString = './track-results.html?duration=' + tripDuration + '&artist=' + query;
 
 	location.assign(queryString);
+	
 	// spotifyFetch(query);
 
 	// something to redirect to new page
+	$(function () {
+		artistNames.push(query);
+		localStorage.setItem('artistNames',JSON.stringify(artistNames));
+	});
 };
 
 
 locationSubmitBtn.on('click',handleLocationSubmitBtn);
 generatePlaylistBtn.addEventListener('click',handleGeneratePlaylistBtn);
 
+init();
