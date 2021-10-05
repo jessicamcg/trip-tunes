@@ -9,6 +9,7 @@ var enterArtist = document.createElement('input')
 var generatePlaylistBtn = document.createElement('button');
 var startCoord;
 var endCoord;
+var tripDuration;
 
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
@@ -59,7 +60,8 @@ function getTravelDuration(start,end) {
 		return(response.json());
 	})
 	.then(function(data){
-		console.log(data)
+		console.log(data.durations[0][1]);
+		tripDuration = data.durations[0][1];
 	})
 	.catch(err => {
 		console.error(err);
@@ -86,37 +88,16 @@ function getPlaylistForm() {
 function handleGeneratePlaylistBtn(event) {
 	event.preventDefault();
 	query = enterArtist.value;
-	spotifyFetch(query);
-};
-//fetch function takes user input and queries spotify
-function spotifyFetch(query) {
-	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + query + "+&count=20&type=tracks"
+	console.log(tripDuration);
 
-		fetch(queryUrl, {
-			"method": "GET",
-			"headers": {
-				"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
-				"x-rapidapi-key": "22e71f10d1msh07051f2aa164562p1e0d92jsn4703fdeb299a"
-			}
-		}).then(response => {
-			return (response.json());
-		}).then(function (data) {
-			getTracks(data)//passes data to next function
-		}).catch(err => {
-			console.error(err);
-		});
-			
+	var queryString = './track-results.html?duration=' + tripDuration + '&artist=' + query;
+
+	location.assign(queryString);
+	// spotifyFetch(query);
+
+	// something to redirect to new page
 };
 
-function getTracks(data){
-	var totalDuration = 0;
-	var tripDuration;
-	for (i=0; totalDuration<tripDuration; i++) {
-		console.log(data.Results[i].duration_ms,data.Results[i].name);
-		totalDuration += data.Results[i].duration_ms;
-		console.log(totalDuration)
-	};
-};
 
 locationSubmitBtn.on('click',handleLocationSubmitBtn);
 generatePlaylistBtn.addEventListener('click',handleGeneratePlaylistBtn);
