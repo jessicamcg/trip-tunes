@@ -40,7 +40,7 @@ function getTracks(data){
 	var totalDuration = 0;
     var trackInfoArr = [];
 
-    console.log(durationTrip, artistQuery);
+    console.log('test');
 
 	for (i=0; totalDuration<durationTrip; i++) {
         var trackLength = parseInt(data.Results[i].duration_ms) / 1000 ;
@@ -48,14 +48,34 @@ function getTracks(data){
 		totalDuration += trackLength;
         trackInfoArr.push(data.Results[i])
 
-        console.log(totalDuration, trackLength , data.Results[i].name);
+        // console.log(totalDuration, trackLength , data.Results[i].name);
 	};
-    console.log(totalDuration);
-    console.log(trackInfoArr);
+    // console.log(totalDuration);
+    // console.log(trackInfoArr);
     printTracklist(trackInfoArr);
 };
 
 function printTracklist(trackInfoArr) {
+	var mainEl = document.querySelector('main');
+	console.log(trackInfoArr);
+	console.log(trackInfoArr[0].artists[0].name)
+	for (i=0; i<trackInfoArr.length; i++){
+	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
+	var trackCard = document.createElement('div');
+	trackCard.innerHTML = '<div><h2><a href='+trackInfoArr[i].external_urls.spotify+'>'+
+	trackInfoArr[i].name +
+	'</a></h2><p>'+
+	trackInfoArr[i].artists[0].name+
+	'</p>'
+	
+
+	mainEl.appendChild(trackCard);
+	}
+	// mainEl.appendChild(trackCard);
+	// var artistName = document.createElement('h2');
+	// artistName.textContent = trackInfoArr[0].artists[0].name;
+	// trackCard.appendChild(artistName);
+
 
 };
 
