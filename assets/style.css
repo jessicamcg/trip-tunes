@@ -1,0 +1,44 @@
+:root {
+    --main-bg-color: #191414;
+    --card-bg: #3d3c3c;
+    --green: #1db954;
+    --light-green: #1ed760;
+    --lightest:#F2FBE0;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--lightest);
+    min-height: 100vh !important;
+}
+
+form label{
+    color: var(--lightest);
+}
+
+form input {
+    border-radius: 5px !important;
+}
+
+button {
+    background-color: var(--green) !important;
+    border-radius: 5px !important;
+}
+
+button:hover {
+    background-color: var(--light-green) !important
+}
+
+nav {
+    background-color: var(--card-bg);
+}
+
+nav a {
+    color: var(--lightest);
+    transition: ease-in-out 0.5;
+}
+
+nav a:hover {
+    color: var(--light-green);
+    transition: ease-in-out 0.5;
+}
