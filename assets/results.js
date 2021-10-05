@@ -55,6 +55,18 @@ function getTracks(data){
     printTracklist(trackInfoArr);
 };
 
+function millisToMinutesAndSeconds(millis) {
+	var minutes = Math.floor(millis / 60000);
+	var seconds = ((millis % 60000) / 1000).toFixed(0);
+	return (
+		seconds == 60 ?
+		(minutes+1) + ":00" :
+		minutes + ":" + (seconds < 10 ? "0" : "") + seconds
+	  );
+	}
+
+
+
 function printTracklist(trackInfoArr) {
 	var mainEl = document.querySelector('main');
 	console.log(trackInfoArr);
@@ -66,7 +78,12 @@ function printTracklist(trackInfoArr) {
 	trackInfoArr[i].name +
 	'</a></h2><p>'+
 	trackInfoArr[i].artists[0].name+
+	'</p><p>'+
+	trackInfoArr[i].album.name+
+	'</p><p>'+
+	millisToMinutesAndSeconds(trackInfoArr[i].duration_ms)+
 	'</p>'
+
 	
 
 	mainEl.appendChild(trackCard);
