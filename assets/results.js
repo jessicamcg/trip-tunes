@@ -17,7 +17,7 @@ function getParameters() {
 
 //fetch function takes user input and queries spotify
 function spotifyFetch(artist) {
-	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=100&type=tracks"
+	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=1000&type=tracks"
 
 		fetch(queryUrl, {
 			"method": "GET",
