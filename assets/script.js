@@ -1,4 +1,3 @@
-
 var locationSubmitBtn = $('#location-submit-btn');
 var locationStartInput = $('#start');
 var locationEndInput= $('#end');
@@ -14,6 +13,7 @@ var artistNames;
 
 function init(){
 	artistNames = JSON.parse(localStorage.getItem("artistNames"))||[];
+	
 }
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
@@ -21,40 +21,30 @@ function handleLocationSubmitBtn(event) {
 	var locationEnd =locationEndInput.val().trim();
 	if (locationStart && locationEnd) {
 		$('main').addClass('main-transform');
-		convertCityNametoCoord(locationStart);
-		convertCityNametoCoord(locationEnd);
+		getCoordinates(locationStart);
+		getCoordinates(locationEnd);
 		getPlaylistForm();
 	} else {
 		alert('Please fill out both locations')
 	};
 };
 
-function convertCityNametoCoord(city) {
-	var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q='+ city +'&units=imperial&appid=4ff77886755c8b9237b9bb4bb1c1e2bf'
-
-	$.ajax({
-        url: requestUrl,
-        method: 'GET',
-        statusCode: {
-            404: function() {
-              alert( "City name not found. Please enter a valid city." );
-            }
-          }
-    }).then(function (response) { 
-		console.log(response);
-
-		console.log(typeof response.coord.lat);
-		console.log(response.coord.lat);
+function getCoordinates(start) {
+	fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + start + ".json?&limit=1&access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
+    .then(response => {
+		return(response.json());
+	})
+	.then(function(data){
 		if (startCoord == undefined) {
-			startCoord = response.coord.lon+','+response.coord.lat;
+			startCoord = data.features[0].geometry.coordinates[0]+','+data.features[0].geometry.coordinates[1];
 		} else {
-			endCoord = response.coord.lon+','+response.coord.lat;
+			endCoord = data.features[0].geometry.coordinates[0]+','+data.features[0].geometry.coordinates[1];
         	getTravelDuration( startCoord,endCoord );
 		};
-
-
-	}).catch()
-
+	})
+	.catch(err => {
+		alert( "City name not found. Please enter a valid city." );
+	});
 };
 
 function getTravelDuration(start,end) {
