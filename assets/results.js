@@ -75,7 +75,7 @@ function printTracklist(trackInfoArr) {
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
 	var trackCard = document.createElement('div');
 	trackCard.innerHTML = '<div class="grid-x grid-padding-x align-center"><div class="cell shrink"><img src="'
-    + trackInfoArr[i].album.images[2].url   +
+    + trackInfoArr[i].album.images[1].url   +
     '" alt="Album art" height="64" width="64"></div><div class="cell auto"><h2>'
 	+ trackInfoArr[i].name +
 	'</h2><p>'+
