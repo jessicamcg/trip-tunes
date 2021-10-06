@@ -100,11 +100,12 @@ function handleGeneratePlaylistBtn(event) {
 	var queryString = './track-results.html?duration=' + tripDuration + '&artist=' + query;
 
 	location.assign(queryString);
-	
-	// spotifyFetch(query);
 
 	// something to redirect to new page
 	$(function () {
+		if (artistNames.includes(query)) {
+			return;
+		};
 		artistNames.push(query);
 		localStorage.setItem('artistNames',JSON.stringify(artistNames));
 	});
