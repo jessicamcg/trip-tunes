@@ -11,6 +11,14 @@ body {
     color: var(--lightest);
 }
 
+main {
+    transform: translateY(+50%);
+}
+
+.main-transform{
+    transform: translateY(+30%) !important;
+}
+
 h1 {
     text-align: center;
     margin-top: 5px;

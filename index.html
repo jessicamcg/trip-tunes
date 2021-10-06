@@ -8,36 +8,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
     <link rel="stylesheet" href="./assets/style.css">
-<body data-sticky-container>
-    <h1>Welcome to our app</h1>
-    <form id='location-form'>
+<body>
+    <main class="">
+      <h1 class="cell">Welcome to our app</h1>
+      <form id='location-form' class="cell">
+          <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+              <div class="medium-6 cell">
+                <label>Start location
+                  <input id="start" type="text" placeholder="Start location">
+                </label>
+              </div>
+              <div class="medium-6 cell">
+                <label>End location
+                  <input id="end" type="text" placeholder="End location">
+                </label>
+              </div>
+            </div>
+            <button id="location-submit-btn" class="button medium-6 cell">Submit Route</button>
+          </div>
+          
+      </form>
+      <form class="cell">
         <div class="grid-container">
           <div class="grid-x grid-padding-x">
-            <div class="medium-6 cell">
-              <label>Start location
-                <input id="start" type="text" placeholder="Start location">
-              </label>
-            </div>
-            <div class="medium-6 cell">
-              <label>End location
-                <input id="end" type="text" placeholder="End location">
-              </label>
+            <div id="playlist-form" class="medium-6 cell">
+              
             </div>
           </div>
-          <button id="location-submit-btn" class="button medium-6 cell">Submit Route</button>
         </div>
-        
-    </form>
-    <form >
-      <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-          <div id="playlist-form" class="medium-6 cell">
-            
-          </div>
-        </div>
-      </div>
-    </form>
-
+      </form>
+    </main>
     <nav data-sticky data-stick-to="bottom" data-btm-anchor="content:bottom">
         <ul class="menu expanded align-center sticky" data-sticky data-stick-to="bottom" data-btm-anchor="content:bottom">
             <li><a href="#">One</a></li>

@@ -20,7 +20,7 @@ function handleLocationSubmitBtn(event) {
 	var locationStart = locationStartInput.val().trim();
 	var locationEnd =locationEndInput.val().trim();
 	if (locationStart && locationEnd) {
-		// getTravelDuration(locationStart,locationEnd);
+		$('main').addClass('main-transform');
 		convertCityNametoCoord(locationStart);
 		convertCityNametoCoord(locationEnd);
 		getPlaylistForm();
