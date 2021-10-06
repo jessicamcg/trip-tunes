@@ -74,20 +74,22 @@ function printTracklist(trackInfoArr) {
 	for (i=0; i<trackInfoArr.length; i++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
 	var trackCard = document.createElement('div');
-	trackCard.innerHTML = '<div><h2><a href='+trackInfoArr[i].external_urls.spotify+'>'+
-	trackInfoArr[i].name +
-	'</a></h2><p>'+
+	trackCard.innerHTML = '<div class="grid-x grid-padding-x align-center"><div class="cell shrink"><img src="'
+    + trackInfoArr[i].album.images[2].url   +
+    '" alt="Album art" height="64" width="64"></div><div class="cell auto"><h2>'
+	+ trackInfoArr[i].name +
+	'</h2><p>'+
 	trackInfoArr[i].artists[0].name+
 	'</p><p>'+
 	trackInfoArr[i].album.name+
 	'</p><p>'+
 	millisToMinutesAndSeconds(trackInfoArr[i].duration_ms)+
-	'</p>'
-
-	
+	'</p></div><div class="cell shrink"><i class="material-icons"><a href='
+    +trackInfoArr[i].external_urls.spotify+
+    '>play_circle_filled</i></a></div></div>'
 
 	mainEl.appendChild(trackCard);
-	}
+	};
 	// mainEl.appendChild(trackCard);
 	// var artistName = document.createElement('h2');
 	// artistName.textContent = trackInfoArr[0].artists[0].name;

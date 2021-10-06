@@ -3,6 +3,7 @@
     --card-bg: #3d3c3c;
     --green: #1db954;
     --light-green: #1ed760;
+    --light-grey: #bac2ac;;
     --lightest:#F2FBE0;
 }
 
@@ -11,21 +12,52 @@ body {
     color: var(--lightest);
 }
 
+header {
+    background-image: linear-gradient( var(--main-bg-color) 50%, transparent);
+    height: 150px;
+    text-align: center;
+    padding: 10px;
+    position: fixed; 
+    width: 100%; 
+    z-index: 100
+}
+
+main {
+    transform: translateY(+5%);
+}
+
+main div {
+    margin-bottom: 10px;
+}
+
 main div div {
     background-color: var(--card-bg);
-    margin-left: 10px;
-    padding: 0px 10px;
+    margin: auto;
+    padding: 10px 10px;
     border-radius: 5px;
     width: 80%;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 5px;
+i a{
+    font-size: 50px !important;
+    color: var(--green);
+    transition: ease-in-out 0.5;
+}
+
+i a:hover{
+    font-size: 50px !important;
+    color: var(--light-green);
+    transition: ease-in-out 0.5;
 }
 
 h2 a{
     color: var(--lightest);
+}
+
+p {
+    color: var(--light-grey);
+    margin: 0px;
+    font-size: 80%;
 }
 
 button {
@@ -38,7 +70,8 @@ button:hover {
 }
 
 nav {
-    background-color: var(--card-bg);
+    background-image: linear-gradient( transparent, var(--main-bg-color) 50%);
+    height: 50px;
     position: fixed; 
     bottom: 0; 
     width: 100%; 
@@ -46,6 +79,7 @@ nav {
 }
 
 nav a {
+    padding-top: 25px !important;
     color: var(--lightest);
     transition: ease-in-out 0.5;
 }

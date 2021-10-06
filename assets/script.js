@@ -20,7 +20,7 @@ function handleLocationSubmitBtn(event) {
 	var locationStart = locationStartInput.val().trim();
 	var locationEnd =locationEndInput.val().trim();
 	if (locationStart && locationEnd) {
-		// getTravelDuration(locationStart,locationEnd);
+		$('main').addClass('main-transform');
 		convertCityNametoCoord(locationStart);
 		convertCityNametoCoord(locationEnd);
 		getPlaylistForm();
@@ -100,11 +100,12 @@ function handleGeneratePlaylistBtn(event) {
 	var queryString = './track-results.html?duration=' + tripDuration + '&artist=' + query;
 
 	location.assign(queryString);
-	
-	// spotifyFetch(query);
 
 	// something to redirect to new page
 	$(function () {
+		if (artistNames.includes(query)) {
+			return;
+		};
 		artistNames.push(query);
 		localStorage.setItem('artistNames',JSON.stringify(artistNames));
 	});
