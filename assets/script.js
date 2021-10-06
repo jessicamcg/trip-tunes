@@ -23,13 +23,24 @@ function handleLocationSubmitBtn(event) {
 		$('main').addClass('main-transform');
 		getCoordinates(locationStart);
 		getCoordinates(locationEnd);
-		getPlaylistForm();
+
 	} else {
-		alert('Please fill out both locations')
+		var alertInput2= document.createElement('div');
+		alertInput2.innerHTML = 
+		'<div class="callout alert" data-closable>' +
+		'<h5>Error!</h5>' +
+		'<p>Please enter a start location and an end location</p>' +
+		'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+		'  <span aria-hidden="true">&times;</span>' +
+		'</button>'
+	  	'</div>';
+		var locationForm = document.querySelector('#location-form');
+		locationForm.appendChild(alertInput2);
 	};
 };
 
 function getCoordinates(start) {
+	startCoord = undefined;
 	fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + start + ".json?&limit=1&access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
     .then(response => {
 		return(response.json());
@@ -43,7 +54,18 @@ function getCoordinates(start) {
 		};
 	})
 	.catch(err => {
-		alert( "City name not found. Please enter a valid city." );
+		var alertLocation = document.createElement('div');
+		alertLocation.innerHTML = 
+		'<div class="callout alert" data-closable>' +
+		'<h5>Error!</h5>' +
+		'<p>You have entered an invalid address/location</p>' +
+		'<p>Please enter a valid location</p>' +
+		'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+		'  <span aria-hidden="true">&times;</span>' +
+		'</button>'
+	  	'</div>';
+		var locationForm = document.querySelector('#location-form');
+		locationForm.appendChild(alertLocation);
 	});
 };
 
@@ -56,9 +78,37 @@ function getTravelDuration(start,end) {
 	.then(function(data){
 		console.log(data.durations[0][1]);
 		tripDuration = data.durations[0][1];
+		if (data.durations[0][1] === null ) {
+			var alertNull = document.createElement('div');
+			alertNull.innerHTML = 
+			'<div class="callout alert" data-closable>' +
+			'<h5>Error!</h5>' +
+			'<p>This is trip is impossible</p>' +
+			'<p>Please enter a valid location</p>' +
+			'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+			'  <span aria-hidden="true">&times;</span>' +
+			'</button>'
+			'</div>';
+			var locationForm = document.querySelector('#location-form');
+			locationForm.appendChild(alertNull);
+			console.log('test');
+		} else {
+			getPlaylistForm();
+		};
 	})
 	.catch(err => {
-		console.error(err);
+		var alertCatch = document.createElement('div');
+		alertCatch.innerHTML = 
+		'<div class="callout alert" data-closable>' +
+		'<h5>Error!</h5>' +
+		'<p>You have entered an invalid address/location</p>' +
+		'<p>Please enter a valid location</p>' +
+		'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+		'  <span aria-hidden="true">&times;</span>' +
+		'</button>'
+	  	'</div>';
+		var locationForm = document.querySelector('#location-form');
+		locationForm.appendChild(alertCatch);
 	});
 };
 

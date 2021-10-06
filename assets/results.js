@@ -3,15 +3,14 @@ var searchParamsArr = document.location.search.split('&');
 var durationTrip = parseInt(searchParamsArr[0].split('=').pop());
 var artistQuery = searchParamsArr[1].split('=').pop();
 
-function getParameters() {
-    // var searchParamsArr = document.location.search.split('&');
 
-    // // Get the query and format values
-    // var durationTrip = parseInt(searchParamsArr[0].split('=').pop());
-    // var artistQuery = searchParamsArr[1].split('=').pop();
-    console.log(searchParamsArr);
-    console.log(durationTrip, artistQuery);
-    console.log(typeof durationTrip);
+var mainEl = document.querySelector('main');
+
+function getParameters() {
+    var loading = document.createElement('div');
+    loading.innerHTML = '<img src="https://media0.giphy.com/media/17mNCcKU1mJlrbXodo/200w.webp?cid=ecf05e47cuar5y1wa3vag19nahou3ytlq4s1kkbzb6hlnwfh&rid=200w.webp&ct=g">';
+    mainEl.appendChild(loading);
+
     spotifyFetch(artistQuery)
 }
 
@@ -31,7 +30,14 @@ function spotifyFetch(artist) {
             console.log(data);
 			getTracks(data)//passes data to next function
 		}).catch(err => {
-			console.error(err);
+            var alertArtist = document.createElement('div');
+			alertArtist.innerHTML = 
+			'<div class="callout large">' +
+            '<h5>Error!</h5>' +
+            '<p>There has been an error fetching your track list, try again</p>'+
+            '<a href="./index.html">Back to the main page</a>' +
+            '</div>';
+			mainEl.appendChild(alertArtist);
 		});
 
 };
@@ -39,8 +45,6 @@ function spotifyFetch(artist) {
 function getTracks(data){
 	var totalDuration = 0;
     var trackInfoArr = [];
-
-    console.log('test');
 
 	for (i=0; totalDuration<durationTrip; i++) {
         var trackLength = parseInt(data.Results[i].duration_ms) / 1000 ;
@@ -68,6 +72,8 @@ function millisToMinutesAndSeconds(millis) {
 
 
 function printTracklist(trackInfoArr) {
+    
+    $('main').empty();
 	var mainEl = document.querySelector('main');
 	console.log(trackInfoArr);
 	console.log(trackInfoArr[0].artists[0].name)
@@ -84,9 +90,9 @@ function printTracklist(trackInfoArr) {
 	trackInfoArr[i].album.name+
 	'</p><p>'+
 	millisToMinutesAndSeconds(trackInfoArr[i].duration_ms)+
-	'</p></div><div class="cell shrink"><i class="material-icons"><a href='
+	'</p></div><div class="cell shrink"><i class="material-icons"><a href="'
     +trackInfoArr[i].external_urls.spotify+
-    '>play_circle_filled</i></a></div></div>'
+    '"target="_blank">play_circle_filled</i></a></div></div>'
 
 	mainEl.appendChild(trackCard);
 	};
