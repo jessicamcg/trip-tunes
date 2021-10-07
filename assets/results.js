@@ -75,26 +75,34 @@ function printTracklist(trackInfoArr) {
 	var mainEl = document.querySelector('main');
     mainEl.classList.add('track-main');
 	
+	var instructions = document.createElement('div');
+	instructions.innerHTML = '<h4>Copy track links below and paste into your new Spotify playlist!</h4>';
+	mainEl.appendChild(instructions);
+
+
 	var uriList=[]
+	// var copyBtn = document.createElement('button');
+	// copyBtn.setAttribute('id','copyBtn');
+	// copyBtn.textContent = 'Copy';
 	var uriForm = document.createElement('div');
+	// uriForm.setAttribute('id','track-links')
+	uriForm.classList.add('cell')
+	uriForm.classList.add('scroll')
+	// uriForm.classList.add('medium-4')
+	// uriForm.classList.add('medium-cell-block-y')
 	for (i=0; i<trackInfoArr.length; i++){
 		console.log(trackInfoArr[i].uri);
 		uriList.push(trackInfoArr[i].uri+'<br>');
+	
 
 		
 	}
-	// for (let i = 0; i < uriList.length; i++) {
-	// 	var listItem = document.createElement('p')
-	// 	uriForm.value = uriList[i]
-	// 	console.log(typeof uriList[i])
-	// 	// uriForm.appendChild(listItem)
-		
-		
-	// }
-	uriForm.innerHTML=uriList;
-	mainEl.appendChild(uriForm)
-	// uriList.join('<br>')
-	// console.log(uriList)
+	uriList=uriList.toString();
+	uriForm.innerHTML=uriList.replaceAll(',','');
+	mainEl.appendChild(uriForm);
+	// mainEl.appendChild(copyBtn)
+
+	// document.querySelector("#copyBtn").addEventListener("click", copy);
 
 
 	
@@ -123,5 +131,13 @@ function printTracklist(trackInfoArr) {
 	};
 
 };
+
+// function copy() {
+// 	var copyText = document.querySelector("#track-links").innerHTML;
+// 	console.log(copyText)
+// 	copyText=copyText.replaceAll('<br>', ' ')
+// 	navigator.clipboard.writeText(copyText)
+// 	alert("Copied: " + copyText)
+//   }
 
 getParameters();
