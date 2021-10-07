@@ -20,9 +20,8 @@ function init(){
 function handleLocationSubmitBtn(event) {
 	event.preventDefault();
 	locationStart = locationStartInput.val().trim();
-	console.log(locationStart);
 	locationEnd =locationEndInput.val().trim();
-	console.log(locationEnd);
+
 	if (locationStart && locationEnd) {
 		$('main').addClass('main-transform');
 		getCoordinates(locationStart);
@@ -50,7 +49,6 @@ function getCoordinates(locationInput) {
 		return(response.json());
 	})
 	.then(function(data){
-		console.log(data.query);
 		if (startCoord == undefined) {
 			startCoord = data.features[0].geometry.coordinates[0]+','+data.features[0].geometry.coordinates[1];
 		} else {
@@ -81,7 +79,7 @@ function getTravelDuration(start,end) {
 		return(response.json());
 	})
 	.then(function(data){
-		console.log(data.durations[0][1]);
+
 		tripDuration = data.durations[0][1];
 		if (data.durations[0][1] === null ) {
 			var alertNull = document.createElement('div');
@@ -139,13 +137,11 @@ function getPlaylistForm() {
 function handleGeneratePlaylistBtn(event) {
 	event.preventDefault();
 	query = enterArtist.value;
-	console.log(tripDuration);
     
 	var queryString = './track-results.html?duration=' + tripDuration + '&artist=' + query + "&start=" + locationStart + "&end=" + locationEnd;
 
 	location.assign(queryString);
 
-	// something to redirect to new page
 	$(function () {
 		if (artistNames.includes(query)) {
 			return;

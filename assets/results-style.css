@@ -13,7 +13,7 @@ body {
 }
 
 header {
-    background-image: linear-gradient( var(--main-bg-color) 50%, transparent);
+    background-image: linear-gradient( var(--main-bg-color) 60%, transparent);
     height: 150px;
     text-align: center;
     padding: 10px;
@@ -27,7 +27,7 @@ main {
     align-content: center;
     height: 100vh;
     flex-direction: column;
-    padding-top: 125px;
+    padding-top: 150px;
 }
 
 .track-main {
@@ -126,15 +126,25 @@ nav a:hover {
 }
 
 @media screen and (min-width: 992px) {
+    
+    header {
+        height: 200px;
+    }
+
+    main {
+        padding-top: 200px;
+    }
+
     .scroll{
         width: 25%;
         height: 50%;
         overflow: scroll;
         margin: auto;
         overflow-x: hidden;
+        margin: 10px auto;
+        padding:10px;
     }
     
-
     .auto {
         display: flex;
         align-content: center;
