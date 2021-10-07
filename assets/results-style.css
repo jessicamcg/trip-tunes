@@ -23,7 +23,15 @@ header {
 }
 
 main {
-    transform: translateY(+5%);
+    display: flex;
+    align-content: center;
+    height: 100vh;
+    flex-direction: column;
+    padding-top: 125px;
+}
+
+.track-main {
+    display: block !important;
 }
 
 main div {
@@ -69,6 +77,19 @@ button:hover {
     background-color: var(--light-green) !important
 }
 
+.callout {
+    border-radius: 5px;
+    background-color: var(--card-bg) !important;
+    color: var(--green) !important;
+    margin: auto !important;
+}
+
+#loading {
+    background-color: var(--main-bg-color) !important;
+    margin: auto;
+    display: block;
+}
+
 nav {
     background-image: linear-gradient( transparent, var(--main-bg-color) 50%);
     height: 50px;
@@ -89,7 +110,7 @@ nav a:hover {
     transition: ease-in-out 0.5;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 992px) {
 
     .auto {
         display: flex;

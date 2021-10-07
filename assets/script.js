@@ -39,9 +39,9 @@ function handleLocationSubmitBtn(event) {
 	};
 };
 
-function getCoordinates(start) {
+function getCoordinates(locationInput) {
 	startCoord = undefined;
-	fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + start + ".json?&limit=1&access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
+	fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + locationInput + ".json?&limit=1&access_token=sk.eyJ1IjoiY2hyaXMtbm9yaWVnYTE0IiwiYSI6ImNrdWN2M2w4bDE0Y3kybm84amVkMzR3NDIifQ.nM00G_PKCkpIF9tzwK9kDA")
     .then(response => {
 		return(response.json());
 	})
