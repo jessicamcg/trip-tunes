@@ -91,7 +91,6 @@ function getTravelDuration(start,end) {
 			'</div>';
 			var locationForm = document.querySelector('#location-form');
 			locationForm.appendChild(alertNull);
-			console.log('test');
 		} else {
 			getPlaylistForm();
 		};
