@@ -33,12 +33,27 @@ main {
 .track-main {
     display: block !important;
 }
+.scroll{
+    width: 70%;
+    height: 20%;
+    overflow: scroll;
+    margin: 10px auto;
+    padding:10px;
+    overflow-x: hidden;
+    border: 2px solid var(--green);
+    border-radius: 5px;
+}
+
+main div h4{
+    text-align: center;
+}
 
 main div {
     margin-bottom: 10px;
 }
 
-main div div {
+main div div,
+main div h4 {
     background-color: var(--card-bg);
     margin: auto;
     padding: 10px 10px;
@@ -111,6 +126,14 @@ nav a:hover {
 }
 
 @media screen and (min-width: 992px) {
+    .scroll{
+        width: 25%;
+        height: 50%;
+        overflow: scroll;
+        margin: auto;
+        overflow-x: hidden;
+    }
+    
 
     .auto {
         display: flex;
