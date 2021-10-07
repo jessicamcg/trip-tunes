@@ -41,6 +41,16 @@ button:hover {
     background-color: var(--light-green) !important
 }
 
+.alert {
+    border-radius: 5px;
+    background-color: var(--card-bg) !important;
+    color: var(--green) !important;
+}
+
+.alert button {
+    background-color: var(--card-bg) !important;
+}
+
 nav {
     background-image: linear-gradient( transparent, var(--main-bg-color) 50%);
     height: 50px;

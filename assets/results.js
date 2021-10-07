@@ -8,7 +8,7 @@ var mainEl = document.querySelector('main');
 
 function getParameters() {
     var loading = document.createElement('div');
-    loading.innerHTML = '<img src="https://media0.giphy.com/media/17mNCcKU1mJlrbXodo/200w.webp?cid=ecf05e47cuar5y1wa3vag19nahou3ytlq4s1kkbzb6hlnwfh&rid=200w.webp&ct=g">';
+    loading.innerHTML = '<div id="loading"><img src="https://media0.giphy.com/media/17mNCcKU1mJlrbXodo/200w.webp?cid=ecf05e47cuar5y1wa3vag19nahou3ytlq4s1kkbzb6hlnwfh&rid=200w.webp&ct=g"></div>';
     mainEl.appendChild(loading);
 
     spotifyFetch(artistQuery)
@@ -67,14 +67,13 @@ function millisToMinutesAndSeconds(millis) {
 		(minutes+1) + ":00" :
 		minutes + ":" + (seconds < 10 ? "0" : "") + seconds
 	  );
-	}
-
-
+};
 
 function printTracklist(trackInfoArr) {
     
     $('main').empty();
 	var mainEl = document.querySelector('main');
+    mainEl.classList.add('track-main')
 	console.log(trackInfoArr);
 	console.log(trackInfoArr[0].artists[0].name)
 	for (i=0; i<trackInfoArr.length; i++){
@@ -96,11 +95,6 @@ function printTracklist(trackInfoArr) {
 
 	mainEl.appendChild(trackCard);
 	};
-	// mainEl.appendChild(trackCard);
-	// var artistName = document.createElement('h2');
-	// artistName.textContent = trackInfoArr[0].artists[0].name;
-	// trackCard.appendChild(artistName);
-
 
 };
 
