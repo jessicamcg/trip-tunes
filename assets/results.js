@@ -8,15 +8,14 @@ var header = document.querySelector('header')
 
 function getParameters() {
 
-
-	var tripDiv = document.createElement('h3');
-	tripDiv.textContent = locationStart + " to " + locationEnd;
-	document.querySelector("header").appendChild(tripDiv);
+		// var tripDiv = document.createElement('h3');
+		// tripDiv.textContent = locationStart + " to " + locationEnd;
+		// document.querySelector("header").appendChild(tripDiv);
     var loading = document.createElement('div');
     loading.innerHTML = '<div id="loading"><img src="https://media0.giphy.com/media/17mNCcKU1mJlrbXodo/200w.webp?cid=ecf05e47cuar5y1wa3vag19nahou3ytlq4s1kkbzb6hlnwfh&rid=200w.webp&ct=g"></div>';
     mainEl.appendChild(loading);
 
-    spotifyFetch(artistQuery)
+    spotifyFetch(artistQuery);
 }
 
 //fetch function takes user input and queries spotify
@@ -32,9 +31,9 @@ function spotifyFetch(artist) {
 		}).then(response => {
 			return (response.json());
 		}).then(function (data) {
-            console.log(data);
 			getTracks(data)//passes data to next function
 		}).catch(err => {
+			$('main').empty();
             var alertArtist = document.createElement('div');
 			alertArtist.innerHTML = 
 			'<div class="callout large">' +
@@ -56,7 +55,7 @@ function getTracks(data){
         var trackLength = parseInt(data.Results[i].duration_ms) / 1000 ;
 		
 		totalDuration += trackLength;
-        trackInfoArr.push(data.Results[i])
+        trackInfoArr.push(data.Results[i]);
 	};
     printTripDuration(totalDuration);
     printTracklist(trackInfoArr);
@@ -76,9 +75,8 @@ function millisToMinutesAndSeconds(millis) {
 function printTripDuration(totalDuration) { //Use totalDuration
 	var tripDurationDisplay = document.createElement('p');
 	var minutes = Math.floor(totalDuration / 60);
-	console.log(minutes);
 	var hours = Math.floor(minutes / 60); 
-	console.log(hours);
+
 	if (minutes > 59) {
 		minutes=minutes - (hours * 60);
 	}
@@ -89,7 +87,7 @@ function printTripDuration(totalDuration) { //Use totalDuration
 		tripDurationDisplay.textContent = hours + 'H, ' + minutes + 'M'; // Return in HH,MM format
 	}
 	header.appendChild(tripDurationDisplay);
-}
+};
 
 function printTracklist(trackInfoArr) {
 
@@ -108,17 +106,13 @@ function printTracklist(trackInfoArr) {
 	// copyBtn.textContent = 'Copy';
 	var uriForm = document.createElement('div');
 	// uriForm.setAttribute('id','track-links')
-	uriForm.classList.add('cell')
-	uriForm.classList.add('scroll')
+	uriForm.classList.add('cell');
+	uriForm.classList.add('scroll');
 	// uriForm.classList.add('medium-4')
 	// uriForm.classList.add('medium-cell-block-y')
 	for (i=0; i<trackInfoArr.length; i++){
-		console.log(trackInfoArr[i].uri);
 		uriList.push(trackInfoArr[i].uri+'<br>');
-	
-
-		
-	}
+	};
 	uriList=uriList.toString();
 	uriForm.innerHTML=uriList.replaceAll(',','');
 	mainEl.appendChild(uriForm);
@@ -126,12 +120,6 @@ function printTracklist(trackInfoArr) {
 
 	// document.querySelector("#copyBtn").addEventListener("click", copy);
 
-
-	
-	
-	
-	// console.log(trackInfoArr);
-	// console.log(trackInfoArr[0].artists[0].name)
 	for (i=0; i<trackInfoArr.length; i++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
         var trackCard = document.createElement('div');
