@@ -56,6 +56,7 @@ function getTracks(data){
 	};
 
     printTracklist(trackInfoArr);
+
 };
 
 function millisToMinutesAndSeconds(millis) {
@@ -72,9 +73,35 @@ function printTracklist(trackInfoArr) {
     
     $('main').empty();
 	var mainEl = document.querySelector('main');
-    mainEl.classList.add('track-main')
-	console.log(trackInfoArr);
-	console.log(trackInfoArr[0].artists[0].name)
+    mainEl.classList.add('track-main');
+	
+	var uriList=[]
+	var uriForm = document.createElement('div');
+	for (i=0; i<trackInfoArr.length; i++){
+		console.log(trackInfoArr[i].uri);
+		uriList.push(trackInfoArr[i].uri+'<br>');
+
+		
+	}
+	// for (let i = 0; i < uriList.length; i++) {
+	// 	var listItem = document.createElement('p')
+	// 	uriForm.value = uriList[i]
+	// 	console.log(typeof uriList[i])
+	// 	// uriForm.appendChild(listItem)
+		
+		
+	// }
+	uriForm.innerHTML=uriList;
+	mainEl.appendChild(uriForm)
+	// uriList.join('<br>')
+	// console.log(uriList)
+
+
+	
+	
+	
+	// console.log(trackInfoArr);
+	// console.log(trackInfoArr[0].artists[0].name)
 	for (i=0; i<trackInfoArr.length; i++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
         var trackCard = document.createElement('div');
