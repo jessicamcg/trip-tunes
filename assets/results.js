@@ -1,12 +1,17 @@
 var searchParamsArr = document.location.search.split('&');
-
 var durationTrip = parseInt(searchParamsArr[0].split('=').pop());
 var artistQuery = searchParamsArr[1].split('=').pop();
-
-
+var locationStart = searchParamsArr[2].split('=').pop();
+var locationEnd = searchParamsArr[3].split('=').pop();
 var mainEl = document.querySelector('main');
+var header = document.querySelector('header')
 
 function getParameters() {
+
+
+	var tripDiv = document.createElement('h3');
+	tripDiv.textContent = locationStart + " to " + locationEnd;
+	document.querySelector("header").appendChild(tripDiv);
     var loading = document.createElement('div');
     loading.innerHTML = '<div id="loading"><img src="https://media0.giphy.com/media/17mNCcKU1mJlrbXodo/200w.webp?cid=ecf05e47cuar5y1wa3vag19nahou3ytlq4s1kkbzb6hlnwfh&rid=200w.webp&ct=g"></div>';
     mainEl.appendChild(loading);
@@ -52,9 +57,8 @@ function getTracks(data){
 		
 		totalDuration += trackLength;
         trackInfoArr.push(data.Results[i])
-
 	};
-
+    printTripDuration(totalDuration);
     printTracklist(trackInfoArr);
 
 };
@@ -69,8 +73,26 @@ function millisToMinutesAndSeconds(millis) {
 	  );
 };
 
+function printTripDuration(totalDuration) { //Use totalDuration
+	var tripDurationDisplay = document.createElement('p');
+	var minutes = Math.floor(totalDuration / 60);
+	console.log(minutes);
+	var hours = Math.floor(minutes / 60); 
+	console.log(hours);
+	if (minutes > 59) {
+		minutes=minutes - (hours * 60);
+	}
+	if (hours == 0) {
+	  tripDurationDisplay.textContent = minutes + 'M'; // Return in MM format
+	} 
+	else {
+		tripDurationDisplay.textContent = hours + 'H, ' + minutes + 'M'; // Return in HH,MM format
+	}
+	header.appendChild(tripDurationDisplay);
+}
+
 function printTracklist(trackInfoArr) {
-    
+
     $('main').empty();
 	var mainEl = document.querySelector('main');
     mainEl.classList.add('track-main');
@@ -118,7 +140,7 @@ function printTracklist(trackInfoArr) {
         '</p></div><div class="cell shrink"><i class="material-icons"><a href="'
         +trackInfoArr[i].external_urls.spotify+
         '"target="_blank">play_circle_filled</i></a></div></div>'
-
+        
         mainEl.appendChild(trackCard);
 	};
 
