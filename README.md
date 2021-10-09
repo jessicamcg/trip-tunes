@@ -1,6 +1,14 @@
 # Trip Tunes
 TripTunes is a versatile web application that generates a playlist based off of the user’s preferred artist and trip duration.  The webpage also allows you to save the generated playlist in Spotify to save the playlist.
 
+## Note 
+One of the APIs has a daily cap of 150 hits, so if the deployed link does not return a tracklist on the results page, then the search limit has been hit.
+
+## Collaborators 
+Jessica Guico https://github.com/jessicamcg
+Nick Margaritondo https://github.com/Nickm615
+Chris Noriega https://github.com/chris-noriega14
+
 ## Description
 
 Upon initial page load the user is presented with an input form prompting the user to enter a start location and an end location.
@@ -14,6 +22,15 @@ The play button icons are clickable and redirects the user to the official track
 The tracks are rendered on card that contain the album artwork, track name, artist, abum and track length.
 
 Appropriate error messages render on screen when the user enters invalid data or when the trip is too long and the API caps their data response.
+
+## Technologies Used
+
+CSS Framework: Foundation
+JQuery
+Unofficial Spotify API
+Mapbox Directions Matrix API
+Mapbox Geocoding API
+Google Icon Fonts
 
 ![Mobile first function](https://github.com/jessicamcg/trip-tunes/blob/main/assets/project-one-gifs/project-one-mobile-view.gif)
 
