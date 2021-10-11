@@ -101,24 +101,25 @@ function printTracklist(trackInfoArr) {
 
 
 	var uriList=[]
-	// var copyBtn = document.createElement('button');
-	// copyBtn.setAttribute('id','copyBtn');
-	// copyBtn.textContent = 'Copy';
+	var copyBtn = document.createElement('button');
+	copyBtn.setAttribute('id','copyBtn');
+	copyBtn.setAttribute('style','margin:auto');
+	copyBtn.textContent = 'Copy';
 	var uriForm = document.createElement('div');
-	// uriForm.setAttribute('id','track-links')
+	uriForm.setAttribute('id','track-links')
 	uriForm.classList.add('cell');
 	uriForm.classList.add('scroll');
 	// uriForm.classList.add('medium-4')
 	// uriForm.classList.add('medium-cell-block-y')
 	for (i=0; i<trackInfoArr.length; i++){
-		uriList.push(trackInfoArr[i].uri+'<br>');
+		uriList.push(trackInfoArr[i].uri+'<br> ');
 	};
 	uriList=uriList.toString();
 	uriForm.innerHTML=uriList.replaceAll(',','');
 	mainEl.appendChild(uriForm);
-	// mainEl.appendChild(copyBtn)
+	uriForm.appendChild(copyBtn)
 
-	// document.querySelector("#copyBtn").addEventListener("click", copy);
+	document.querySelector("#copyBtn").addEventListener("click", copy);
 
 	for (i=0; i<trackInfoArr.length; i++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
@@ -142,12 +143,13 @@ function printTracklist(trackInfoArr) {
 
 };
 
-// function copy() {
-// 	var copyText = document.querySelector("#track-links").innerHTML;
-// 	console.log(copyText)
-// 	copyText=copyText.replaceAll('<br>', ' ')
-// 	navigator.clipboard.writeText(copyText)
-// 	alert("Copied: " + copyText)
-//   }
+function copy() {
+	var copyText = document.querySelector("#track-links").innerHTML;
+	
+	copyText=copyText.replaceAll('<br>', '\n')
+	console.log(copyText)
+	navigator.clipboard.writeText(copyText)
+	alert("Copied: " + copyText)
+  }
 
 getParameters();
