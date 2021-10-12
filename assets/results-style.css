@@ -159,11 +159,11 @@ nav a:hover {
         display: flex;
         width: 80%;
         margin: 0 auto;
+        font-size: 90%;
     }
 
     main section div {
-        width: 50%;
-        padding: 40px 10px;
+        padding: 10px 10px;
     }
 
     h4 {
@@ -176,6 +176,7 @@ nav a:hover {
 
     .scroll{
         width: 40%;
+        height: 380px;
         overflow: scroll;
         margin: auto;
         overflow-x: hidden;

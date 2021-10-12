@@ -95,7 +95,6 @@ function printTracklist(trackInfoArr) {
 	var mainEl = document.querySelector('main');
     mainEl.classList.add('track-main');
 
-	var instructions = document.createElement('div')
 	instructions.innerHTML = '<h4>Copy the tracks by clicking the button below and paste into your new Spotify playlist!</h4>';
 	copySection.appendChild(instructions);
 
@@ -159,7 +158,8 @@ function copy() {
 	'  <span aria-hidden="true">&times;</span>' +
 	'</button>'
 	  '</div>';
-	copySection.appendChild(alertCopy);
+	// mainEl.prepend(alertCopy);
+	instructions.appendChild(alertCopy);
 }
 
 init();
