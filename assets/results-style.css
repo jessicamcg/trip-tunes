@@ -33,9 +33,10 @@ main {
 .track-main {
     display: block !important;
 }
+
 .scroll{
     width: 70%;
-    height: 20%;
+    height: 300px;
     overflow: scroll;
     margin: 10px auto;
     padding:10px;
@@ -44,21 +45,30 @@ main {
     border-radius: 5px;
 }
 
-main div h4{
+main section h4{
     text-align: center;
 }
 
+main section,
 main div {
     margin-bottom: 10px;
 }
 
 main div div,
-main div h4 {
+main section h4 {
     background-color: var(--card-bg);
     margin: auto;
     padding: 10px 10px;
     border-radius: 5px;
     width: 80%;
+}
+
+#copy-btn {
+    display: flex;
+    margin: 10px auto;
+    padding: 10px 10px;
+    border-radius: 5px;
+    width: 70%;
 }
 
 i a{
@@ -99,6 +109,16 @@ button:hover {
     margin: auto !important;
 }
 
+.alert {
+    border-radius: 5px;
+    background-color: var(--card-bg) !important;
+    color: var(--green) !important;
+}
+
+.alert button {
+    background-color: var(--card-bg) !important;
+}
+
 #loading {
     background-color: var(--main-bg-color) !important;
     margin: auto;
@@ -135,9 +155,28 @@ nav a:hover {
         padding-top: 200px;
     }
 
-    .scroll{
+    main section {
+        display: flex;
+        width: 80%;
+        margin: 0 auto;
+        font-size: 90%;
+    }
+
+    main section div {
+        padding: 10px 10px;
+    }
+
+    h4 {
+        margin: 0;
+    }
+
+    #copy-btn {
         width: 25%;
-        height: 50%;
+    }
+
+    .scroll{
+        width: 40%;
+        height: 380px;
         overflow: scroll;
         margin: auto;
         overflow-x: hidden;
