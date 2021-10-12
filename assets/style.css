@@ -6,11 +6,6 @@
     --lightest:#F2FBE0;
 }
 
-/* #copyBtn{
-    margin: auto;
-    padding: 25px;
-} */
-
 body {
     background-color: var(--main-bg-color);
     color: var(--lightest);

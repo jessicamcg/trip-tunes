@@ -5,9 +5,10 @@ var locationStart = searchParamsArr[2].split('=').pop();
 var locationEnd = searchParamsArr[3].split('=').pop();
 var mainEl = document.querySelector('main');
 var header = document.querySelector('header')
+var copySection = document.createElement('section');
+var instructions =document.createElement('div');
 
-function getParameters() {
-
+function init() {
 		// var tripDiv = document.createElement('h3');
 		// tripDiv.textContent = locationStart + " to " + locationEnd;
 		// document.querySelector("header").appendChild(tripDiv);
@@ -18,7 +19,6 @@ function getParameters() {
     spotifyFetch(artistQuery);
 }
 
-//fetch function takes user input and queries spotify
 function spotifyFetch(artist) {
 	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=1000&type=tracks"
 
@@ -31,7 +31,7 @@ function spotifyFetch(artist) {
 		}).then(response => {
 			return (response.json());
 		}).then(function (data) {
-			getTracks(data)//passes data to next function
+			getTracks(data)
 		}).catch(err => {
 			$('main').empty();
             var alertArtist = document.createElement('div');
@@ -72,7 +72,7 @@ function millisToMinutesAndSeconds(millis) {
 	  );
 };
 
-function printTripDuration(totalDuration) { //Use totalDuration
+function printTripDuration(totalDuration) { 
 	var tripDurationDisplay = document.createElement('p');
 	var minutes = Math.floor(totalDuration / 60);
 	var hours = Math.floor(minutes / 60); 
@@ -81,10 +81,10 @@ function printTripDuration(totalDuration) { //Use totalDuration
 		minutes=minutes - (hours * 60);
 	}
 	if (hours == 0) {
-	  tripDurationDisplay.textContent = minutes + 'M'; // Return in MM format
+	  tripDurationDisplay.textContent = minutes + 'M'; 
 	} 
 	else {
-		tripDurationDisplay.textContent = hours + 'H, ' + minutes + 'M'; // Return in HH,MM format
+		tripDurationDisplay.textContent = hours + 'H ' + minutes + 'M'; 
 	}
 	header.appendChild(tripDurationDisplay);
 };
@@ -94,48 +94,51 @@ function printTracklist(trackInfoArr) {
     $('main').empty();
 	var mainEl = document.querySelector('main');
     mainEl.classList.add('track-main');
-	
-	var instructions = document.createElement('div');
-	instructions.innerHTML = '<h4>Copy track links below and paste into your new Spotify playlist!</h4>';
-	mainEl.appendChild(instructions);
+
+	var instructions = document.createElement('div')
+	instructions.innerHTML = '<h4>Copy the tracks by clicking the button below and paste into your new Spotify playlist!</h4>';
+	copySection.appendChild(instructions);
 
 
-	var uriList=[]
+	var uriList=[];
 	var copyBtn = document.createElement('button');
-	copyBtn.setAttribute('id','copyBtn');
-	copyBtn.setAttribute('style','margin:auto');
+	copyBtn.setAttribute('id','copy-btn');
 	copyBtn.textContent = 'Copy';
+	copyBtn.classList.add("medium-6")
+	copyBtn.classList.add("button")
+	copyBtn.classList.add("align-center")
+
 	var uriForm = document.createElement('div');
 	uriForm.setAttribute('id','track-links')
 	uriForm.classList.add('cell');
 	uriForm.classList.add('scroll');
-	// uriForm.classList.add('medium-4')
-	// uriForm.classList.add('medium-cell-block-y')
+
 	for (i=0; i<trackInfoArr.length; i++){
 		uriList.push(trackInfoArr[i].uri+'<br> ');
 	};
 	uriList=uriList.toString();
 	uriForm.innerHTML=uriList.replaceAll(',','');
-	mainEl.appendChild(uriForm);
-	uriForm.appendChild(copyBtn)
+	instructions.appendChild(copyBtn);
+	mainEl.appendChild(copySection);
+	copySection.appendChild(uriForm);
 
-	document.querySelector("#copyBtn").addEventListener("click", copy);
+	document.querySelector("#copy-btn").addEventListener("click", copy);
 
-	for (i=0; i<trackInfoArr.length; i++){
+	for (let j=0; j<trackInfoArr.length; j++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
         var trackCard = document.createElement('div');
         trackCard.innerHTML = '<div class="grid-x grid-padding-x align-center"><div class="cell shrink"><img src="'
-        + trackInfoArr[i].album.images[1].url   +
+        + trackInfoArr[j].album.images[1].url   +
         '" alt="Album art" height="64" width="64"></div><div class="cell auto"><h2>'
-        + trackInfoArr[i].name +
+        + trackInfoArr[j].name +
         '</h2><p>'+
-        trackInfoArr[i].artists[0].name+
+        trackInfoArr[j].artists[0].name+
         '</p><p>'+
-        trackInfoArr[i].album.name+
+        trackInfoArr[j].album.name+
         '</p><p>'+
-        millisToMinutesAndSeconds(trackInfoArr[i].duration_ms)+
+        millisToMinutesAndSeconds(trackInfoArr[j].duration_ms)+
         '</p></div><div class="cell shrink"><i class="material-icons"><a href="'
-        +trackInfoArr[i].external_urls.spotify+
+        +trackInfoArr[j].external_urls.spotify+
         '"target="_blank">play_circle_filled</i></a></div></div>'
         
         mainEl.appendChild(trackCard);
@@ -145,11 +148,18 @@ function printTracklist(trackInfoArr) {
 
 function copy() {
 	var copyText = document.querySelector("#track-links").innerHTML;
-	
 	copyText=copyText.replaceAll('<br>', '\n')
-	console.log(copyText)
 	navigator.clipboard.writeText(copyText)
-	alert("Copied: " + copyText)
-  }
+	var alertCopy = document.createElement('section');
+	alertCopy.innerHTML = 
+	'<div class="callout alert" data-closable>' +
+	'<h5>Copied!</h5>' +
+	'<p>You may now paste these tracks into a playlist in the Spotify App</p>' +
+	'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+	'  <span aria-hidden="true">&times;</span>' +
+	'</button>'
+	  '</div>';
+	copySection.appendChild(alertCopy);
+}
 
-getParameters();
+init();
