@@ -2,12 +2,12 @@
 TripTunes is a versatile web application that generates a playlist based off of the user’s preferred artist and trip duration.  The webpage also allows you to save the generated playlist in Spotify to save the playlist.
 
 ## Note 
-One of the APIs has a daily cap of 150 hits, so if the deployed link does not return a tracklist on the results page, then the search limit has been hit.
+As of 11/24/2021 the Spotify API in use is no longer available. We are working to convert to a new API.
 
 ## Collaborators 
-Jessica Guico https://github.com/jessicamcg
-Nick Margaritondo https://github.com/Nickm615
-Chris Noriega https://github.com/chris-noriega14
+[Jessica Guico](https://github.com/jessicamcg)
+[Nick Margaritondo](https://github.com/Nickm615)
+[Chris Noriega](https://github.com/chris-noriega14)
 
 ## Description
 
