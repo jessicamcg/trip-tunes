@@ -20,43 +20,70 @@ function init() {
 }
 
 function spotifyFetch(artist) {
-	queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=1000&type=tracks"
+	// queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=1000&type=tracks"
 
-		fetch(queryUrl, {
-			"method": "GET",
-			"headers": {
-				"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
-				"x-rapidapi-key": "22e71f10d1msh07051f2aa164562p1e0d92jsn4703fdeb299a"
-			}
-		}).then(response => {
-			return (response.json());
-		}).then(function (data) {
+	// 	fetch(queryUrl, {
+	// 		"method": "GET",
+	// 		"headers": {
+	// 			"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
+	// 			"x-rapidapi-key": "22e71f10d1msh07051f2aa164562p1e0d92jsn4703fdeb299a"
+	// 		}
+	// 	}).then(response => {
+	// 		return (response.json());
+	// 	}).then(function (data) {
+	// 		getTracks(data)
+	// 	}).catch(err => {
+	// 		$('main').empty();
+    //         var alertArtist = document.createElement('div');
+	// 		alertArtist.innerHTML = 
+	// 		'<div class="callout large">' +
+    //         '<h5>Error!</h5>' +
+    //         '<p>There has been an error fetching your track list, try again</p>'+
+    //         '<p>If the problem persists, try a shorter trip.</p>'+
+    //         '<a href="./index.html">Back to the main page</a>' +
+    //         '</div>';
+	// 		mainEl.appendChild(alertArtist);
+	// 	});
+
+	const options = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
+			'X-RapidAPI-Key': ''
+		}
+	};
+	
+	fetch(`https://spotify23.p.rapidapi.com/search/?q=${artist}&type=multi&offset=0&limit=100`, options)
+		.then(response => response.json())
+		.then(data => {
+			console.log(data)
 			getTracks(data)
-		}).catch(err => {
+		})
+		.catch(err => {
 			$('main').empty();
-            var alertArtist = document.createElement('div');
+			var alertArtist = document.createElement('div');
 			alertArtist.innerHTML = 
-			'<div class="callout large">' +
-            '<h5>Error!</h5>' +
-            '<p>There has been an error fetching your track list, try again</p>'+
-            '<p>If the problem persists, try a shorter trip.</p>'+
-            '<a href="./index.html">Back to the main page</a>' +
-            '</div>';
+				'<div class="callout large">' +
+				'<h5>Error!</h5>' +
+				'<p>There has been an error fetching your track list, try again</p>'+
+				'<p>If the problem persists, try a shorter trip.</p>'+
+				'<a href="./index.html">Back to the main page</a>' +
+				'</div>';
 			mainEl.appendChild(alertArtist);
-		});
-
+		})
 };
 
 function getTracks(data){
 	var totalDuration = 0;
     var trackInfoArr = [];
-
+	console.log(durationTrip);
 	for (i=0; totalDuration<durationTrip; i++) {
-        var trackLength = parseInt(data.Results[i].duration_ms) / 1000 ;
+        var trackLength = parseInt(data.tracks.items[i].data.duration.totalMilliseconds) / 1000 ;
 		
 		totalDuration += trackLength;
-        trackInfoArr.push(data.Results[i]);
+        trackInfoArr.push(data.tracks.items[i].data);
 	};
+	console.log(trackInfoArr);
     printTripDuration(totalDuration);
     printTracklist(trackInfoArr);
 
@@ -127,17 +154,17 @@ function printTracklist(trackInfoArr) {
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
         var trackCard = document.createElement('div');
         trackCard.innerHTML = '<div class="grid-x grid-padding-x align-center"><div class="cell shrink"><img src="'
-        + trackInfoArr[j].album.images[1].url   +
+        + trackInfoArr[j].albumOfTrack.coverArt.sources[0].url   +
         '" alt="Album art" height="64" width="64"></div><div class="cell auto"><h2>'
         + trackInfoArr[j].name +
         '</h2><p>'+
-        trackInfoArr[j].artists[0].name+
+        trackInfoArr[j].artists.items[0].profile.name+
         '</p><p>'+
-        trackInfoArr[j].album.name+
+        trackInfoArr[j].albumOfTrack.name+
         '</p><p>'+
-        millisToMinutesAndSeconds(trackInfoArr[j].duration_ms)+
+        millisToMinutesAndSeconds(trackInfoArr[j].duration.totalMilliseconds)+
         '</p></div><div class="cell shrink"><i class="material-icons"><a href="'
-        +trackInfoArr[j].external_urls.spotify+
+        +trackInfoArr[j].uri+
         '"target="_blank">play_circle_filled</i></a></div></div>'
         
         mainEl.appendChild(trackCard);
