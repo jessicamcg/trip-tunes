@@ -140,7 +140,7 @@ function printTracklist(trackInfoArr) {
 	uriForm.classList.add('scroll');
 
 	for (i=0; i<trackInfoArr.length; i++){
-		uriList.push(trackInfoArr[i].uri+'<br> ');
+		uriList.push(trackInfoArr[i].uri+'<br>');
 	};
 	uriList=uriList.toString();
 	uriForm.innerHTML=uriList.replaceAll(',','');
@@ -153,6 +153,8 @@ function printTracklist(trackInfoArr) {
 	for (let j=0; j<trackInfoArr.length; j++){
 	//creates card. adds track name(with anchor link to spotify url), adds artist name, adds album name, adds duration, MAYBE album cover, MAYBE preview.
         var trackCard = document.createElement('div');
+		let trackId = trackInfoArr[j].uri.split(':')
+
         trackCard.innerHTML = '<div class="grid-x grid-padding-x align-center"><div class="cell shrink"><img src="'
         + trackInfoArr[j].albumOfTrack.coverArt.sources[0].url   +
         '" alt="Album art" height="64" width="64"></div><div class="cell auto"><h2>'
@@ -163,9 +165,9 @@ function printTracklist(trackInfoArr) {
         trackInfoArr[j].albumOfTrack.name+
         '</p><p>'+
         millisToMinutesAndSeconds(trackInfoArr[j].duration.totalMilliseconds)+
-        '</p></div><div class="cell shrink"><i class="material-icons"><a href="'
-        +trackInfoArr[j].uri+
-        '"target="_blank">play_circle_filled</i></a></div></div>'
+        '</p></div><div class="cell shrink"><i class="material-icons"><a href="https://open.spotify.com/track/'
+		+ trackId[2] +
+		'" target="_blank">play_circle_filled</i></a></div></div>'
         
         mainEl.appendChild(trackCard);
 	};
