@@ -20,36 +20,11 @@ function init() {
 }
 
 function spotifyFetch(artist) {
-	// queryUrl = "https://unsa-unofficial-spotify-api.p.rapidapi.com/search?query=" + artist + "+&count=1000&type=tracks"
-
-	// 	fetch(queryUrl, {
-	// 		"method": "GET",
-	// 		"headers": {
-	// 			"x-rapidapi-host": "unsa-unofficial-spotify-api.p.rapidapi.com",
-	// 			"x-rapidapi-key": "22e71f10d1msh07051f2aa164562p1e0d92jsn4703fdeb299a"
-	// 		}
-	// 	}).then(response => {
-	// 		return (response.json());
-	// 	}).then(function (data) {
-	// 		getTracks(data)
-	// 	}).catch(err => {
-	// 		$('main').empty();
-    //         var alertArtist = document.createElement('div');
-	// 		alertArtist.innerHTML = 
-	// 		'<div class="callout large">' +
-    //         '<h5>Error!</h5>' +
-    //         '<p>There has been an error fetching your track list, try again</p>'+
-    //         '<p>If the problem persists, try a shorter trip.</p>'+
-    //         '<a href="./index.html">Back to the main page</a>' +
-    //         '</div>';
-	// 		mainEl.appendChild(alertArtist);
-	// 	});
-
 	const options = {
 		method: 'GET',
 		headers: {
 			'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
-			'X-RapidAPI-Key': ''
+			'X-RapidAPI-Key': '7a6df3fb48mshee26177317639e4p1d004bjsnb1cf10875525'
 		}
 	};
 	
@@ -180,13 +155,13 @@ function copy() {
 	navigator.clipboard.writeText(copyText)
 	var alertCopy = document.createElement('section');
 	alertCopy.innerHTML = 
-	'<div class="callout alert" data-closable>' +
-	'<h5>Copied!</h5>' +
-	'<p>You may now paste these tracks into a playlist in the Spotify App</p>' +
-	'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
-	'  <span aria-hidden="true">&times;</span>' +
-	'</button>'
-	  '</div>';
+		'<div class="callout alert" data-closable>' +
+		'<h5>Copied!</h5>' +
+		'<p>You may now paste these tracks into a playlist in the Spotify App</p>' +
+		'<button class="close-button" aria-label="Dismiss alert" type="button" data-close>' +
+		'  <span aria-hidden="true">&times;</span>' +
+		'</button>'
+		'</div>';
 	// mainEl.prepend(alertCopy);
 	instructions.appendChild(alertCopy);
 }
